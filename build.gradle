@@ -1,8 +1,9 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.16.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.1.16.RELEASE'
+//	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
 }
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.catalystone.migrationservice'
 version = '0.0.1-SNAPSHOT'
@@ -10,44 +11,46 @@ sourceCompatibility = '11'
 
 repositories {
 
-maven {
-	url 'https://pkgs.dev.azure.com/catonedevops/_packaging/catonedevops/maven/v1'
-		credentials {
-		username "AZURE_ARTIFACTS"
-		password System.getenv("AZURE_ARTIFACTS_ENV_ACCESS_TOKEN") ?: "${azureArtifactsGradleAccessToken}"
-	}
-	}
+    maven {
+        url 'https://pkgs.dev.azure.com/catonedevops/_packaging/catonedevops/maven/v1'
+        credentials {
+            username "AZURE_ARTIFACTS"
+            password System.getenv("AZURE_ARTIFACTS_ENV_ACCESS_TOKEN") ?: "${azureArtifactsGradleAccessToken}"
+        }
+    }
+    mavenCentral()
+    jcenter()
 
-	mavenCentral()
+}
+
+
+test {
+    useJUnitPlatform()
 }
 
 dependencies {
 
-  implementation 'com.catalystone:tenancy-config-api-client:1.1.+'
-	
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
-	testImplementation 'io.projectreactor:reactor-test'
-	
-	
-	
-		//Multitenancy	
-	implementation 'com.catalystone:spring-data-tenancy-webflux:1.1.0'	
-	testImplementation 'com.catalystone:tenancy-config-api-client-test:1.1.5'
-	compile group: 'io.grpc', name: 'grpc-netty-shaded', version: '1.29.0'
-	
-	
-	
-	//compile("com.microsoft.sqlserver:sqljdbc4:4.0")
-	
-	compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '8.4.1.jre11'
 
-	
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat')
+
+    compile group: 'io.grpc', name: 'grpc-netty-shaded', version: '1.30.2'
+
+    //Multitenancy
+    implementation 'com.catalystone:spring-data-tenancy-webflux:1.1.+'
+
+
+    //JDBC
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile("com.microsoft.sqlserver:sqljdbc4:4.0")
+
+//	compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '8.4.1.jre11'
+
+    testImplementation 'com.catalystone:tenancy-config-api-client-test:1.1.+'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'io.projectreactor:reactor-test'
+
 }
 
-test {
-	useJUnitPlatform()
-}
