@@ -36,9 +36,9 @@ public class MultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMu
 		TenantProperties tp = Tenant.getCurrentTenant().getProperties();
 
 
-        String url = tp.get("DB_URL_CV").toString().replace("encrypt=true;", "");
-        String username = tp.get("DB_USER_CV").toString();
-        String encodedPassword = tp.get("DB_PASSWORD_CV").toString();
+        String url = tp.get("DB_URL_MONOLITH").toString().replace("encrypt=true;", "");
+        String username = tp.get("DB_USER_MONOLITH").toString();
+        String encodedPassword = tp.get("DB_PASSWORD_MONOLITH").toString();
         String password = new String(Base64.getDecoder().decode(encodedPassword));
 
 
