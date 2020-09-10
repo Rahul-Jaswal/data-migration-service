@@ -1,4 +1,4 @@
-package com.catalystone.migrationservice.tenancy.config;
+package com.catalystone.migrationservice.tenancy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +21,10 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @org.springframework.context.annotation.Configuration
 @EnableJpaRepositories(entityManagerFactoryRef = "firstEntityManager" ,basePackages ={
-		"com.catalystone.cv"
+		"com.catalystone.migrationservice"
 })
 public class MultiTenancyFullConfiguration {
 	@Bean("Connection1")

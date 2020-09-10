@@ -1,5 +1,6 @@
-package com.catalystone.migrationservice.tenancy.config;
+package com.catalystone.migrationservice.tenancy;
 
+import com.catalystone.migrationservice.tenancy.model.Tenant;
 import com.catalystone.tenancy.api.TenantApiClient;
 import com.catalystone.tenancy.api.TenantProperties;
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
@@ -30,9 +31,9 @@ public class MultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMu
 
         Driver driver = new SQLServerDriver();
 
-        TenantProperties tp = apiClient.getProperties(tenantIdentifier).block();
+//        TenantProperties tp = apiClient.getProperties(tenantIdentifier).block();
 
-//		TenantProperties tp = TenantContext.getCurrentTenant().getTenantContext().getProperties();
+		TenantProperties tp = Tenant.getCurrentTenant().getProperties();
 
 
         String url = tp.get("DB_URL_CV").toString().replace("encrypt=true;", "");

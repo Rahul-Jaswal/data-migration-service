@@ -1,4 +1,4 @@
-package com.catalystone.migrationservice.tenancy.config;
+package com.catalystone.migrationservice.tenancy;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.stereotype.Component;
 
